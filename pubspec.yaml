@@ -23,12 +23,17 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  hooks_riverpod:
+  state_notifier:
+  freezed_annotation:
 
   cupertino_icons: ^1.0.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  build_runner:
+  freezed:
 
 flutter:
   uses-material-design: true
