@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jinro_soup/views/player.dart';
 
 class TopPage extends StatelessWidget {
   @override
@@ -21,7 +22,15 @@ class TopPage extends StatelessWidget {
               style: ButtonStyle(
                 minimumSize: MaterialStateProperty.all<Size>(Size(140, 40)),
               ),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return PlayerPage();
+                    },
+                  ),
+                );
+              },
             ),
             SizedBox(height: 2),
             ElevatedButton(
