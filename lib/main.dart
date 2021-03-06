@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:jinro_soup/route_generator.dart';
 import 'package:jinro_soup/viewModel/player.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:jinro_soup/views/top.dart';
 
 final playerViewModelProvider = StateNotifierProvider(
   (ref) => PlayerViewModel(),
@@ -15,6 +15,10 @@ void main() {
   );
 }
 
+class Const {
+  static const routeNameInputPlayer = '/input-player';
+}
+
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -23,7 +27,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: TopPage(),
+      initialRoute: '/',
+      onGenerateRoute: RouteGenerator.generateRoute,
     );
   }
 }
