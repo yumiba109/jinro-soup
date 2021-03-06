@@ -4,12 +4,16 @@ import 'package:state_notifier/state_notifier.dart';
 
 class PlayerViewModel extends StateNotifier<PlayerState> {
   PlayerViewModel() : super(const PlayerState());
+  int _id = 1;
 
-  void createPlayer(String name) {
-    final id = state.playerList.length + 1;
+  void createPlayer() {
+    final id = _id;
+    final name = 'プレイヤー$_id';
     final isWolf = false;
     final newList = [...state.playerList, Player(id, name, isWolf)];
     state = state.copyWith(playerList: newList);
+
+    _id++;
   }
 
   void updatePlayer(int id, String name, bool isWolf) {
