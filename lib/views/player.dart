@@ -45,6 +45,16 @@ class PlayerView extends HookWidget {
                 context.read(playerViewModelProvider).resetPlayer();
               },
             ),
+            SizedBox(
+              height: 20,
+            ),
+            ElevatedButton(
+              child: const Text('次へ進む'),
+              style: ButtonStyle(
+                minimumSize: MaterialStateProperty.all<Size>(Size(180, 40)),
+              ),
+              onPressed: () {},
+            ),
           ],
         ),
       ),
