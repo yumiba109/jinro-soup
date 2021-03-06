@@ -35,10 +35,43 @@ class _PlayerFormState extends State<PlayerForm> {
           children: <Widget>[
             TextFormField(
               initialValue: player.name,
+              maxLength: 20,
+              decoration: const InputDecoration(
+                hintText: 'プレイヤー名を入力してください',
+                labelText: 'プレイヤー名',
+              ),
+              validator: (String name) {
+                return name.isEmpty ? 'プレイヤー名を入力してください' : null;
+              },
+              onSaved: (String name) {
+                _name = name;
+              },
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            ElevatedButton(
+              child: const Text('OK'),
+              style: ButtonStyle(
+                minimumSize: MaterialStateProperty.all<Size>(Size(140, 40)),
+              ),
+              onPressed: () {
+                _submit(context, player);
+              },
             ),
           ],
         ),
       ),
     );
+  }
+
+  void _submit(BuildContext context, Player player) {
+    if (_formKey.currentState.validate()) {
+      _formKey.currentState.save();
+      context
+          .read(playerViewModelProvider)
+          .updatePlayer(player.id, _name, player.isWolf);
+      Navigator.pop(context);
+    }
   }
 }
