@@ -6,9 +6,10 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 class InputPlayerView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final player = ModalRoute.of(context).settings.arguments as Player;
     return Scaffold(
       appBar: AppBar(
-        title: Text('test'),
+        title: Text(player.name),
       ),
       body: PlayerForm(),
     );
