@@ -29,6 +29,15 @@ class PlayerView extends HookWidget {
                 context.read(playerViewModelProvider).createPlayer();
               },
             ),
+            ElevatedButton(
+              child: const Text('リセット'),
+              style: ButtonStyle(
+                minimumSize: MaterialStateProperty.all<Size>(Size(140, 40)),
+              ),
+              onPressed: () {
+                context.read(playerViewModelProvider).resetPlayer();
+              },
+            ),
           ],
         ),
       ),

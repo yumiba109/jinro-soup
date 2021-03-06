@@ -28,4 +28,11 @@ class PlayerViewModel extends StateNotifier<PlayerState> {
         state.playerList.where((player) => player.id != id).toList();
     state = state.copyWith(playerList: newList);
   }
+
+  void resetPlayer() {
+    final newList = state.playerList.where((player) => player.id == 0).toList();
+    state = state.copyWith(playerList: newList);
+
+    _id = 1;
+  }
 }
