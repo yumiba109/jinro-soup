@@ -16,13 +16,17 @@ class PlayerView extends HookWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
+            Container(
+              height: 300,
+              child: _buildList(),
+            ),
             ElevatedButton(
               child: const Text('プレイヤー追加'),
               style: ButtonStyle(
                 minimumSize: MaterialStateProperty.all<Size>(Size(140, 40)),
               ),
               onPressed: () {
-                _transitionToNextScreen(context);
+                context.read(playerViewModelProvider).createPlayer();
               },
             ),
           ],
@@ -31,9 +35,50 @@ class PlayerView extends HookWidget {
     );
   }
 
+  Widget _buildList() {
+    final playerState = useProvider(playerViewModelProvider.state);
+    final _playerList = playerState.playerList;
+
+    return ListView.builder(
+      padding: const EdgeInsets.all(20),
+      itemCount: _playerList.length,
+      itemBuilder: (BuildContext context, int index) {
+        return _playerItem(_playerList[index], context);
+      },
+    );
+  }
+
+  Widget _playerItem(Player player, BuildContext context) {
+    return InkWell(
+      child: Container(
+        padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Text(
+              player.name,
+              style: TextStyle(
+                fontSize: 20,
+              ),
+            ),
+            InkWell(
+              child: Icon(Icons.indeterminate_check_box_outlined),
+              onTap: () {
+                context.read(playerViewModelProvider).deletePlayer(player.id);
+              },
+            ),
+          ],
+        ),
+      ),
+      onTap: () {
+        _transitionToNextScreen(context, player: player);
+      },
+    );
+  }
+
   Future<void> _transitionToNextScreen(BuildContext context,
       {Player player}) async {
-    final result = await Navigator.pushNamed(
+    Navigator.pushNamed(
       context,
       Const.routeNameInputPlayer,
       arguments: player,
