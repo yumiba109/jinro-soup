@@ -1,10 +1,34 @@
+import 'dart:convert';
+
 import 'package:jinro_soup/model/player.dart';
 import 'package:jinro_soup/state/player.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:state_notifier/state_notifier.dart';
 
 class PlayerViewModel extends StateNotifier<PlayerState> {
-  PlayerViewModel() : super(const PlayerState());
+  PlayerViewModel() : super(const PlayerState()) {
+    initPlayerList();
+  }
+
   int _id = 1;
+
+  Future<void> initPlayerList() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    var result = prefs.getStringList('playerList');
+
+    if (result != null) {
+      final newList =
+          result.map((f) => Player.fromJson(json.decode(f))).toList();
+      state = state.copyWith(playerList: newList);
+
+      _id = state.playerList.length + 1;
+    } else {
+      for (var i = 0; i < 3; i++) {
+        createPlayer();
+      }
+    }
+  }
 
   void createPlayer() {
     final id = _id;
@@ -14,6 +38,8 @@ class PlayerViewModel extends StateNotifier<PlayerState> {
     state = state.copyWith(playerList: newList);
 
     _id++;
+
+    updateSharedPreferences();
   }
 
   void updatePlayer(int id, String name, bool isWolf) {
@@ -21,12 +47,16 @@ class PlayerViewModel extends StateNotifier<PlayerState> {
         .map((player) => player.id == id ? Player(id, name, isWolf) : player)
         .toList();
     state = state.copyWith(playerList: newList);
+
+    updateSharedPreferences();
   }
 
   void deletePlayer(int id) {
     final newList =
         state.playerList.where((player) => player.id != id).toList();
     state = state.copyWith(playerList: newList);
+
+    updateSharedPreferences();
   }
 
   void resetPlayer() {
@@ -34,5 +64,13 @@ class PlayerViewModel extends StateNotifier<PlayerState> {
     state = state.copyWith(playerList: newList);
 
     _id = 1;
+
+  Future<void> updateSharedPreferences() async {
+    List<String> playerList =
+        state.playerList.map((f) => json.encode(f.toJson())).toList();
+
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    await prefs.setStringList('playerList', playerList);
   }
 }
