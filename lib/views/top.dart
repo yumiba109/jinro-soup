@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:jinro_soup/views/player.dart';
 
-class TopPage extends StatelessWidget {
+class TopView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,7 +26,7 @@ class TopPage extends StatelessWidget {
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) {
-                      return PlayerPage();
+                      return PlayerView();
                     },
                   ),
                 );
