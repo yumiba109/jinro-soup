@@ -11,6 +11,9 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => TopView());
       case Const.routeNameInputPlayer:
         return MaterialPageRoute(
+          settings: RouteSettings(
+            arguments: settings.arguments,
+          ),
           builder: (context) => InputPlayerView(),
           fullscreenDialog: true,
         );
