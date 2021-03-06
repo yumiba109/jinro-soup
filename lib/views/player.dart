@@ -17,6 +17,9 @@ class PlayerView extends HookWidget {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             Container(
+              child: _playerCount(context),
+            ),
+            Container(
               height: 300,
               child: _buildList(),
             ),
@@ -44,6 +47,17 @@ class PlayerView extends HookWidget {
     );
   }
 
+  Widget _playerCount(BuildContext context) {
+    int _count = context.read(playerViewModelProvider).getPlayerCount();
+
+    return Text(
+      'プレイヤー数：$_count',
+      style: TextStyle(
+        fontSize: 16,
+      ),
+    );
+  }
+
   Widget _buildList() {
     final playerState = useProvider(playerViewModelProvider.state);
     final _playerList = playerState.playerList;
@@ -58,7 +72,7 @@ class PlayerView extends HookWidget {
   }
 
   Widget _playerItem(Player player, BuildContext context) {
-    int count = context.read(playerViewModelProvider).getPlayerCount();
+    int _count = context.read(playerViewModelProvider).getPlayerCount();
 
     return InkWell(
       child: Container(
@@ -72,7 +86,7 @@ class PlayerView extends HookWidget {
                 fontSize: 20,
               ),
             ),
-            if (count > MINIMUM_NUMBER_OF_PEOPLE)
+            if (_count > MINIMUM_NUMBER_OF_PEOPLE)
               InkWell(
                 child: Icon(Icons.indeterminate_check_box_outlined),
                 onTap: () {
