@@ -20,7 +20,7 @@ class PlayerView extends HookWidget {
               child: _playerCount(context),
             ),
             Container(
-              height: 300,
+              height: 350,
               child: _buildList(),
             ),
             ElevatedButton(
