@@ -1,0 +1,1 @@
+const MINIMUM_NUMBER_OF_PEOPLE = 3;

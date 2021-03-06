@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:jinro_soup/globals.dart';
 import 'package:jinro_soup/model/player.dart';
 import 'package:jinro_soup/state/player.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -24,7 +25,7 @@ class PlayerViewModel extends StateNotifier<PlayerState> {
 
       _id = state.playerList.length + 1;
     } else {
-      for (var i = 0; i < 3; i++) {
+      for (var i = 0; i < MINIMUM_NUMBER_OF_PEOPLE; i++) {
         createPlayer();
       }
     }
@@ -64,6 +65,12 @@ class PlayerViewModel extends StateNotifier<PlayerState> {
     state = state.copyWith(playerList: newList);
 
     _id = 1;
+
+  int getPlayerCount() {
+    int count = state.playerList.length;
+
+    return count;
+  }
 
   Future<void> updateSharedPreferences() async {
     List<String> playerList =

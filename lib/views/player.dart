@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:jinro_soup/globals.dart';
 import 'package:jinro_soup/main.dart';
 import 'package:jinro_soup/model/player.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:jinro_soup/views/input_player.dart';
 
 class PlayerView extends HookWidget {
   @override
@@ -58,6 +58,8 @@ class PlayerView extends HookWidget {
   }
 
   Widget _playerItem(Player player, BuildContext context) {
+    int count = context.read(playerViewModelProvider).getPlayerCount();
+
     return InkWell(
       child: Container(
         padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
@@ -70,12 +72,13 @@ class PlayerView extends HookWidget {
                 fontSize: 20,
               ),
             ),
-            InkWell(
-              child: Icon(Icons.indeterminate_check_box_outlined),
-              onTap: () {
-                context.read(playerViewModelProvider).deletePlayer(player.id);
-              },
-            ),
+            if (count > MINIMUM_NUMBER_OF_PEOPLE)
+              InkWell(
+                child: Icon(Icons.indeterminate_check_box_outlined),
+                onTap: () {
+                  context.read(playerViewModelProvider).deletePlayer(player.id);
+                },
+              ),
           ],
         ),
       ),
