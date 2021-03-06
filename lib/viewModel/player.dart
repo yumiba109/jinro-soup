@@ -66,6 +66,13 @@ class PlayerViewModel extends StateNotifier<PlayerState> {
 
     _id = 1;
 
+    for (var i = 0; i < MINIMUM_NUMBER_OF_PEOPLE; i++) {
+      createPlayer();
+    }
+
+    updateSharedPreferences();
+  }
+
   int getPlayerCount() {
     int count = state.playerList.length;
 
