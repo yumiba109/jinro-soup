@@ -9,6 +9,7 @@ class QuestionView extends HookWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
+        padding: EdgeInsets.all(20),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
