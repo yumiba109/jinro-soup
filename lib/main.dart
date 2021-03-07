@@ -2,9 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:jinro_soup/route_generator.dart';
 import 'package:jinro_soup/viewModel/player.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:jinro_soup/viewModel/question.dart';
 
 final playerViewModelProvider = StateNotifierProvider(
   (ref) => PlayerViewModel(),
+);
+
+final questionViewModelProvider = StateNotifierProvider(
+  (ref) => QuestionViewModel(),
 );
 
 void main() {
@@ -17,6 +22,8 @@ void main() {
 
 class Const {
   static const routeNameInputPlayer = '/input-player';
+  static const routeNameQuestion = '/question';
+  static const routeNameAnswer = '/answer';
 }
 
 class MyApp extends StatelessWidget {

@@ -53,7 +53,15 @@ class PlayerView extends HookWidget {
               style: ButtonStyle(
                 minimumSize: MaterialStateProperty.all<Size>(Size(180, 40)),
               ),
-              onPressed: () {},
+              onPressed: () {
+                String _masterName =
+                    context.read(playerViewModelProvider).decidePlayerRole();
+                Navigator.pushNamed(
+                  context,
+                  Const.routeNameQuestion,
+                  arguments: _masterName,
+                );
+              },
             ),
           ],
         ),
@@ -104,7 +112,9 @@ class PlayerView extends HookWidget {
               InkWell(
                 child: Icon(Icons.indeterminate_check_box_outlined),
                 onTap: () {
-                  context.read(playerViewModelProvider).deletePlayer(player.id);
+                  context
+                      .read(playerViewModelProvider)
+                      .deletePlayer(player.id, true);
                 },
               ),
           ],

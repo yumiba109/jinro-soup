@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math' as math;
 
 import 'package:jinro_soup/globals.dart';
 import 'package:jinro_soup/model/player.dart';
@@ -43,21 +44,25 @@ class PlayerViewModel extends StateNotifier<PlayerState> {
     updateSharedPreferences();
   }
 
-  void updatePlayer(int id, String name, bool isWolf) {
+  void updatePlayer(int id, String name, bool isWolf, bool saveFlag) {
     final newList = state.playerList
         .map((player) => player.id == id ? Player(id, name, isWolf) : player)
         .toList();
     state = state.copyWith(playerList: newList);
 
-    updateSharedPreferences();
+    if (saveFlag) {
+      updateSharedPreferences();
+    }
   }
 
-  void deletePlayer(int id) {
+  void deletePlayer(int id, bool saveFlag) {
     final newList =
         state.playerList.where((player) => player.id != id).toList();
     state = state.copyWith(playerList: newList);
 
-    updateSharedPreferences();
+    if (saveFlag) {
+      updateSharedPreferences();
+    }
   }
 
   void resetPlayer() {
@@ -86,5 +91,21 @@ class PlayerViewModel extends StateNotifier<PlayerState> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     await prefs.setStringList('playerList', playerList);
+  }
+
+  String decidePlayerRole() {
+    var rands =
+        new List<int>.generate(state.playerList.length, (int index) => index);
+    rands.shuffle();
+
+    // 人狼を決める
+    Player wolf = state.playerList[rands[1]];
+    updatePlayer(wolf.id, wolf.name, true, false);
+
+    // マスターを決める
+    Player master = state.playerList[rands[0]];
+    deletePlayer(master.id, false);
+
+    return master.name;
   }
 }
