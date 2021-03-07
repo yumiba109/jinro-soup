@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jinro_soup/views/answer.dart';
 import 'package:jinro_soup/views/input_player.dart';
 import 'package:jinro_soup/views/question.dart';
 import 'package:jinro_soup/views/top.dart';
@@ -24,6 +25,14 @@ class RouteGenerator {
             arguments: settings.arguments,
           ),
           builder: (context) => QuestionView(),
+        );
+      case Const.routeNameAnswer:
+        return MaterialPageRoute(
+          settings: RouteSettings(
+            arguments: settings.arguments,
+          ),
+          builder: (context) => AnswerView(),
+          fullscreenDialog: true,
         );
     }
   }

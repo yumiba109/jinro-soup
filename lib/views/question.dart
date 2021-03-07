@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:jinro_soup/main.dart';
+import 'package:jinro_soup/model/question.dart';
 
 class QuestionView extends HookWidget {
   @override
@@ -19,17 +20,7 @@ class QuestionView extends HookWidget {
             ),
             Container(
               width: double.infinity,
-              child: _displayQuestion(),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            ElevatedButton(
-              child: const Text('答えを見る'),
-              style: ButtonStyle(
-                minimumSize: MaterialStateProperty.all<Size>(Size(140, 40)),
-              ),
-              onPressed: () {},
+              child: _displayQuestion(context),
             ),
           ],
         ),
@@ -55,7 +46,7 @@ class QuestionView extends HookWidget {
     );
   }
 
-  Widget _displayQuestion() {
+  Widget _displayQuestion(BuildContext context) {
     final questionState = useProvider(questionViewModelProvider.state);
     final _questionList = questionState.questionList;
 
@@ -64,6 +55,22 @@ class QuestionView extends HookWidget {
         Text(
           _questionList[0].question,
           style: TextStyle(fontSize: 20),
+        ),
+        SizedBox(
+          height: 10,
+        ),
+        ElevatedButton(
+          child: const Text('答えを見る'),
+          style: ButtonStyle(
+            minimumSize: MaterialStateProperty.all<Size>(Size(140, 40)),
+          ),
+          onPressed: () {
+            Navigator.pushNamed(
+              context,
+              Const.routeNameAnswer,
+              arguments: _questionList[0],
+            );
+          },
         ),
       ],
     );

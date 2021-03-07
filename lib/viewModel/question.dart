@@ -7,7 +7,7 @@ class QuestionViewModel extends StateNotifier<QuestionState> {
     initialQuestionList();
   }
 
-  List<Question> initialQuestionList() {
+  void initialQuestionList() {
     final newList = [Question('テスト問題', 'テスト回答')];
     state = state.copyWith(questionList: newList);
   }
