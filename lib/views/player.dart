@@ -104,7 +104,9 @@ class PlayerView extends HookWidget {
               InkWell(
                 child: Icon(Icons.indeterminate_check_box_outlined),
                 onTap: () {
-                  context.read(playerViewModelProvider).deletePlayer(player.id);
+                  context
+                      .read(playerViewModelProvider)
+                      .deletePlayer(player.id, true);
                 },
               ),
           ],

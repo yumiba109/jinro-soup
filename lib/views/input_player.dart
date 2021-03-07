@@ -71,7 +71,7 @@ class _PlayerFormState extends State<PlayerForm> {
       _formKey.currentState.save();
       context
           .read(playerViewModelProvider)
-          .updatePlayer(player.id, _name, player.isWolf);
+          .updatePlayer(player.id, _name, player.isWolf, true);
       Navigator.pop(context);
     }
   }
