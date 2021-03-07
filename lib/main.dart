@@ -17,6 +17,7 @@ void main() {
 
 class Const {
   static const routeNameInputPlayer = '/input-player';
+  static const routeNameQuestion = '/question';
 }
 
 class MyApp extends StatelessWidget {

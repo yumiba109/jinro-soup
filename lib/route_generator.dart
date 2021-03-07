@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jinro_soup/views/input_player.dart';
+import 'package:jinro_soup/views/question.dart';
 import 'package:jinro_soup/views/top.dart';
 
 import 'main.dart';
@@ -16,6 +17,13 @@ class RouteGenerator {
           ),
           builder: (context) => InputPlayerView(),
           fullscreenDialog: true,
+        );
+      case Const.routeNameQuestion:
+        return MaterialPageRoute(
+          settings: RouteSettings(
+            arguments: settings.arguments,
+          ),
+          builder: (context) => QuestionView(),
         );
     }
   }

@@ -53,7 +53,15 @@ class PlayerView extends HookWidget {
               style: ButtonStyle(
                 minimumSize: MaterialStateProperty.all<Size>(Size(180, 40)),
               ),
-              onPressed: () {},
+              onPressed: () {
+                String _masterName =
+                    context.read(playerViewModelProvider).decidePlayerRole();
+                Navigator.pushNamed(
+                  context,
+                  Const.routeNameQuestion,
+                  arguments: _masterName,
+                );
+              },
             ),
           ],
         ),
